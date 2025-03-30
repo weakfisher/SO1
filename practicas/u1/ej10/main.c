@@ -8,25 +8,36 @@
 #include <unistd.h>
 #include <stdlib.h>
 #include <sys/types.h>
-void handler(int s){
-    printf("ouch!\n");
+
+pid_t pid_c;
+void handler_c(int s){
+    printf("child!\n");
+    kill((getppid()), SIGUSR1);
 }
+
+void handler_p(int s){
+
+    printf("parent]!\n");
+    kill((getpid()), SIGUSR1);
+}
+
 int main(){
 
 __pid_t pid =fork();
 if(pid==0){
-    struct sigaction sa;
-    sa.sa_handler = handler;
 
-    sigaction(SIGUSR1, &sa, NULL);
-    while(1){
-        pause();
-    }
+    signal(SIGUSR1, handler_c);
+    //while(1);
+    pause();  
+    
 }else{
-    while(1){
-        kill(pid, SIGUSR1);
-        pause();
-    }
+    pid_c = pid;
+    signal(SIGUSR1, handler_p);
+    sleep(1);
+    kill(pid, SIGUSR1);
+
+    //while(1);
+    pause();
 }
 return 0;
 }
