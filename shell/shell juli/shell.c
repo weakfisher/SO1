@@ -40,7 +40,9 @@ int main(){
     }
     
     pid_t pid = fork();
-
+    if(strlen(buffer) == 0){
+      continue;
+    }
     if (pid == 0) {
         execvp(argv[0], argv); 
         perror("No se puede ejecutar el comando.");
