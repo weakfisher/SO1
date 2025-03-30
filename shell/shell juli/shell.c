@@ -24,7 +24,7 @@ int main(){
   printf("Iniciando la shell...\n");
 
   while(1){
-    printf(">> ");
+    printf("$");
     fgets(buffer, BUFFER_MAX_SIZE, stdin);
     buffer[strcspn(buffer, "\n")] = '\0';
     int i = 0;
@@ -37,7 +37,7 @@ int main(){
 
     if (strcmp(argv[0], "exit") == 0) {
       return 0;
-    }
+    } 
     
     pid_t pid = fork();
     if(strlen(buffer) == 0){
@@ -46,7 +46,7 @@ int main(){
     if (pid == 0) {
         execvp(argv[0], argv); 
         perror("No se puede ejecutar el comando.");
-        exit(1);
+        exit(1);  
     } else if (pid > 0) {
         wait(NULL);
     } else {
