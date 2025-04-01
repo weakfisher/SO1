@@ -10,5 +10,5 @@ r = 1 / denom;
 printf("r = %d\n", r);
 return 0;
 }
-//Sucede que el programa siempre imprime ouch ya que la variable denom se inicializa en 0 y en la función handler se le asigna el valor de 1,  por lo que  se produce una excepción de división por cero.
-// luego como ya se esta evaluando no va a parar de imprimir ouch pues el handler no para la ejecucion pues luego el comportamiendo es indefinido.
+// Sucede que siempre se escribe ouch debido a que cuando el handler cambia el denom por 1 el regitro que 
+//ejecuta r =1/denom sigue siendo sobre 0 por que la variable denom ya estar cargada en un registro
